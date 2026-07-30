@@ -2,7 +2,6 @@
 
 #include "NetUtil.h"
 
-
 int SendAll(SOCKET ReceiverSocket, const char* Data, int Size)
 {
 	int TotalSendDataSize = 0;
@@ -20,18 +19,6 @@ int SendAll(SOCKET ReceiverSocket, const char* Data, int Size)
 	} while (TotalSendDataSize < WantSendDataSize);
 
 	return WantSendDataSize;
-}
-
-void DisconnectSocket(SOCKET DisconnectedSocket, fd_set* Sockets)
-{
-	SOCKADDR_IN ClosedSockAddr;
-	memset(&ClosedSockAddr, 0, sizeof(ClosedSockAddr));
-	int ClosedSockAddrLength = sizeof(ClosedSockAddr);
-
-	SOCKET ClosedSocket = DisconnectedSocket;
-	getpeername(ClosedSocket, (SOCKADDR*)&ClosedSockAddr, &ClosedSockAddrLength);
-	FD_CLR(DisconnectedSocket, &Sockets);
-	closesocket(ClosedSocket);
 }
 
 int RecvAll(SOCKET ReceiverSocket, char* OutData, int Size)

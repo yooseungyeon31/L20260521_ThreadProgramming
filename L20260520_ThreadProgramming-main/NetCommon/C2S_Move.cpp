@@ -3,29 +3,21 @@
 
 void C2S_Move::Parse(std::string InString)
 {
-	JSONDocument.Parse(InString.c_str());
+    JSONDocument.Parse(InString.c_str());
 
-	ClientSocket = JSONDocument["ClientSocket"].GetInt();
-	Direction = JSONDocument["Direction"].GetString();
-
+    ClientSocket = JSONDocument["ClientSocket"].GetInt();
+    Direction = JSONDocument["Direction"].GetInt();
 }
 
 std::string C2S_Move::ToString()
 {
-	//JSONDocument를 문자열 변환 요청
-	JSONDocument.SetObject();
-	JSONDocument.AddMember("ClientSocket", ClientSocket, JSONDocument.GetAllocator());
-	JSONDocument.AddMember("Direction", Direction, JSONDocument.GetAllocator());
+    JSONDocument.SetObject();
+    JSONDocument.AddMember("ClientSocket", ClientSocket, JSONDocument.GetAllocator());
+    JSONDocument.AddMember("Direction", Direction, JSONDocument.GetAllocator());
 
+    rapidjson::StringBuffer Buffer;
+    rapidjson::Writer<rapidjson::StringBuffer> Writer(Buffer);
+    JSONDocument.Accept(Writer);
 
-	rapidjson::StringBuffer Buffer;
-	rapidjson::Writer<rapidjson::StringBuffer> Writer(Buffer);
-	JSONDocument.Accept(Writer);
-
-
-	return std::string();
+    return Buffer.GetString();
 }
-
-
-
-

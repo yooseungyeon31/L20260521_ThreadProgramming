@@ -5,7 +5,7 @@ class C2S_Move : public IPacket
 public:
 
 	SOCKET ClientSocket;
-	std::string Direction;
+	char Direction;
 
 
 	void Parse(std::string InString) override;

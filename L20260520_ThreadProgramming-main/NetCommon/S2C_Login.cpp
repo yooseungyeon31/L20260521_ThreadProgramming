@@ -4,15 +4,16 @@
 void S2C_Login::Parse(std::string InString)
 {
     JSONDocument.Parse(InString.c_str());
+
     Message = JSONDocument["Message"].GetString();
+    ClientSocketID = JSONDocument["ClientSocketID"].GetInt();
 }
 
 std::string S2C_Login::ToString()
 {
-
-    //JSONDocument를 문자열 변환 요청
     JSONDocument.SetObject();
     JSONDocument.AddMember("Message", Message, JSONDocument.GetAllocator());
+    JSONDocument.AddMember("ClientSocketID", ClientSocketID, JSONDocument.GetAllocator());
 
 
     rapidjson::StringBuffer Buffer;
@@ -20,6 +21,4 @@ std::string S2C_Login::ToString()
     JSONDocument.Accept(Writer);
 
     return Buffer.GetString();
-
 }
-

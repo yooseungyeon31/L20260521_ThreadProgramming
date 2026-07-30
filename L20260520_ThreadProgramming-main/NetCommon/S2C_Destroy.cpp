@@ -24,6 +24,5 @@ std::string S2C_Destroy::ToString()
 	JSONDocument.Accept(Writer);
 
 
-	return std::string();
-	return std::string();
+	return Buffer.GetString();
 }
